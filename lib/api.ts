@@ -20,27 +20,33 @@ interface NoteHubSearchParams {
 
 const myToken = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
 
+if (!myToken) {
+  throw new Error(
+    "Missing NoteHub API token. Set NEXT_PUBLIC_NOTEHUB_TOKEN in .env"
+  );
+}
+
+const headers = {
+  authorization: `Bearer ${myToken}`,
+};
 export async function fetchNotes(
   query: string,
   page: number,
-  tag?: string | undefined
+  tag?: string,
+  perPage: number = 12
 ): Promise<NoteHubResponse> {
-  const noteHubSearchParams: NoteHubSearchParams = {
-    params: {
-      page,
-      perPage: 12,
-      tag,
-    },
-    headers: {
-      authorization: `Bearer ${myToken}`,
-    },
+  const params: NoteHubSearchParams["params"] = {
+    page,
+    perPage,
+    tag,
   };
+
   if (query.trim() !== "") {
-    noteHubSearchParams.params.search = query.trim();
+    params.search = query.trim();
   }
   const response = await axios.get<NoteHubResponse>(
     "https://notehub-public.goit.study/api/notes/",
-    noteHubSearchParams
+    { params, headers }
   );
   return response.data;
 }

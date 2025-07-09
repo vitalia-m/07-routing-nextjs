@@ -5,18 +5,18 @@ import { useState } from "react";
 
 export default function TagsMenu() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const toogle = () => setIsOpen(!isOpen);
+  const toggle = () => setIsOpen(!isOpen);
 
   return (
     <div className={css.menuContainer}>
-      <button onClick={toogle} className={css.menuButton}>
+      <button onClick={toggle} className={css.menuButton}>
         Notes ▾
       </button>
       {isOpen && (
         <ul className={css.menuList}>
           <li className={css.menuItem}>
             <Link
-              onClick={toogle}
+              onClick={toggle}
               href={`/notes/filter/All`}
               className={css.menuLink}
             >
@@ -25,7 +25,7 @@ export default function TagsMenu() {
           </li>
           <li className={css.menuItem}>
             <Link
-              onClick={toogle}
+              onClick={toggle}
               href={`/notes/filter/Todo`}
               className={css.menuLink}
             >
@@ -34,7 +34,7 @@ export default function TagsMenu() {
           </li>
           <li className={css.menuItem}>
             <Link
-              onClick={toogle}
+              onClick={toggle}
               href={`/notes/filter/Work`}
               className={css.menuLink}
             >
@@ -43,7 +43,7 @@ export default function TagsMenu() {
           </li>
           <li className={css.menuItem}>
             <Link
-              onClick={toogle}
+              onClick={toggle}
               href={`/notes/filter/Personal`}
               className={css.menuLink}
             >
@@ -52,7 +52,7 @@ export default function TagsMenu() {
           </li>
           <li className={css.menuItem}>
             <Link
-              onClick={toogle}
+              onClick={toggle}
               href={`/notes/filter/Meeting`}
               className={css.menuLink}
             >
@@ -61,7 +61,7 @@ export default function TagsMenu() {
           </li>
           <li className={css.menuItem}>
             <Link
-              onClick={toogle}
+              onClick={toggle}
               href={`/notes/filter/Shopping`}
               className={css.menuLink}
             >
