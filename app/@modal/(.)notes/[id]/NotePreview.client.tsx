@@ -17,7 +17,7 @@ export default function NotePreviewClient() {
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["Note", Number(id)],
+    queryKey: ["note", Number(id)],
     queryFn: () => fetchNoteById(Number(id)),
     refetchOnMount: false,
   });
@@ -26,9 +26,9 @@ export default function NotePreviewClient() {
 
   if (error || !note) return <p>Something went wrong.</p>;
 
-  const formattedDate = note.updatedAt
-    ? `Updated at: ${note.updatedAt}`
-    : `Created at: ${note.createdAt}`;
+  const formattedDate = new Date(
+    note.updatedAt || note.createdAt
+  ).toLocaleString();
 
   return (
     <NoteModal onClose={goBack}>
@@ -37,7 +37,7 @@ export default function NotePreviewClient() {
           <div className={css.header}>
             <h2>{note.title}</h2>
             <button onClick={goBack} className={css.backBtn}>
-              Back
+              Close
             </button>
           </div>
           <p className={css.content}>{note.content}</p>
